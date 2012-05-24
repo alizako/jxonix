@@ -6,7 +6,9 @@ import java.util.Set;
 
 public class BattleField {
 	private Tile[][] tiles;
+	// TODO remember previous battle-field state, or just path to revert it back when enemy kills hero
 	private Set<Point> pathOfHero;
+	private int score;
 	
 	public BattleField(int n, int m) {
 		tiles = new Tile[n + 2][m + 2];
@@ -46,6 +48,10 @@ public class BattleField {
 						}
 						
 						tiles[y][x] = Tile.EARTH;
+						// update score
+						if (tiles[newY][newX].isWater()) {
+							score++;
+						}
 						// update state of next cell
 						tiles[newY][newX] = Tile.HERO;
 					}
@@ -72,5 +78,9 @@ public class BattleField {
 	
 	public Tile getTile(int x, int y) {
 		return tiles[y][x];
+	}
+	
+	public int getScore() {
+		return score;
 	}
 }

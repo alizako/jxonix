@@ -35,7 +35,8 @@ public class Tests {
 		for (int y = 1; y < FIELD_HEIGHT + 2; y++) {
 			field.moveHero(0, 1);
 			assertEquals("Hero erased cell #" + y, Tile.EARTH, field.getTile(2, y - 1));
-			
 		}
+		
+		assertEquals("Score", FIELD_HEIGHT, field.getScore());
 	}
 }
