@@ -1,13 +1,8 @@
 package su.litvak.xonix.model;
 
-import java.awt.Point;
-import java.util.HashSet;
-import java.util.Set;
 
 public class BattleField {
 	private Tile[][] tiles;
-	// TODO remember previous battle-field state, or just path to revert it back when enemy kills hero
-	private Set<Point> pathOfHero;
 	private int score;
 	
 	public BattleField(int n, int m) {
@@ -22,41 +17,6 @@ public class BattleField {
 					tiles[i][j] = Tile.EARTH;
 				} else {
 					tiles[i][j] = Tile.WATER;
-				}
-			}
-		}
-	}
-	
-	public void moveHero(int dx, int dy) {
-		for (int y = 0; y < tiles.length; y++) {
-			for (int x = 0; x < tiles[y].length; x++) {
-				if (tiles[y][x].isHero()) {
-					int newX = x + dx;
-					int newY = y + dy;
-					
-					if (newX >= 0 && newX < tiles[y].length &&
-						newY >= 0 && newY < tiles.length) {
-						// check maybe we need to clean up (in case we entered the clean cell)
-						if (tiles[newY][newX].isEarth()) {
-							// TODO clean-field
-						} else {
-							if (pathOfHero == null) {
-								pathOfHero = new HashSet<Point>();
-							}
-							
-							pathOfHero.add(new Point(x, y));
-						}
-						
-						tiles[y][x] = Tile.EARTH;
-						// update score
-						if (tiles[newY][newX].isWater()) {
-							score++;
-						}
-						// update state of next cell
-						tiles[newY][newX] = Tile.HERO;
-					}
-					
-					return;
 				}
 			}
 		}
@@ -80,7 +40,23 @@ public class BattleField {
 		return tiles[y][x];
 	}
 	
+	public void setTile(int x, int y, Tile tile) {
+		tiles[y][x] = tile;
+	}
+	
+	public int getWidth() {
+		return tiles[0].length;
+	}
+	
+	public int getHeight() {
+		return tiles.length;
+	}
+	
 	public int getScore() {
 		return score;
+	}
+	
+	public void setScore(int score) {
+		this.score = score;
 	}
 }
