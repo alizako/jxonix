@@ -1,0 +1,1 @@
+When I was studying I had a task to write xonix game in java. Haven't completed it in university. Thus going to implement it here in java with tests, etc. First implementation will be in swing/web-start/applet. Then want a pure web version, then for ios and android.
